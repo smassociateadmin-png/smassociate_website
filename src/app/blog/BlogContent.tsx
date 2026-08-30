@@ -9,6 +9,7 @@ import { BLOG_POSTS } from '@/lib/constants';
 import { DateFormatter } from '@/lib/DateFormatter';
 import VaultContactSection from '@/components/sections/VaultContactSection';
 import FAQSection from '@/components/sections/FAQSection';
+import AnimatedNumber from '@/components/AnimatedNumber';
 
 export default function BlogContent() {
   const [isMounted, setIsMounted] = useState(false);
@@ -56,7 +57,7 @@ export default function BlogContent() {
               { label: 'Total Articles', count: BLOG_POSTS.length }
             ].map((cat, idx) => (
               <div key={idx} className="bg-white/10 backdrop-blur rounded-lg p-4 border border-white/20">
-                <div className="text-2xl font-bold mb-1">{cat.count}</div>
+                <div className="text-2xl font-bold mb-1"><AnimatedNumber value={cat.count} /></div>
                 <p className="text-sm text-gray-300">{cat.label}</p>
               </div>
             ))}
