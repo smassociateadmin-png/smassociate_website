@@ -1,0 +1,382 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* FAQ Section Variables and Mechanics */
+:root {
+  --faq-bg: #EEF0F3;
+  --faq-line: #D7DBE2;
+  --faq-blue: #2F63E0;
+  --faq-green: #178F52;
+  --faq-ink: #141A24;
+  --faq-muted: #636D7C;
+  --font-site: var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-site);
+  --font-disp: var(--font-site);
+  --font-body: var(--font-site);
+}
+
+body {
+  font-family: var(--font-site);
+}
+
+/* Graceful and legible alt text fallback styling while images load */
+img {
+  color: #94a3b8;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Tailwind font-sans override → Plus Jakarta Sans */
+.font-sans {
+  font-family: var(--font-site) !important;
+}
+
+.font-disp {
+  font-family: var(--font-site);
+}
+
+.font-jet-mono {
+  font-family: var(--font-site);
+}
+
+.font-inter {
+  font-family: var(--font-site);
+}
+
+/* FAQ Flip Card 3D Mechanics */
+.faq-flip-card {
+  perspective: 1400px;
+}
+
+.faq-flip-inner {
+  position: relative;
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.faq-flip-card.flipped .faq-flip-inner {
+  transform: rotateX(-180deg);
+}
+
+.faq-flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.faq-flip-back {
+  transform: rotateX(-180deg);
+  background: #FBFCFD;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-flip-inner {
+    transition: none;
+  }
+}
+
+/* Vaultline Custom Contact Styles & Keyframes */
+
+/* Vaultline Custom Contact Styles & Keyframes */
+@keyframes vault-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vault-stamp {
+  0% {
+    transform: scale(0) rotate(-18deg);
+  }
+
+  70% {
+    transform: scale(1.12) rotate(4deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.font-fraunces {
+  font-family: var(--font-site);
+}
+
+.font-ibm-sans {
+  font-family: var(--font-site);
+}
+
+.font-ibm-mono {
+  font-family: var(--font-site);
+}
+
+.vault-perf-v {
+  background-image: radial-gradient(circle, var(--perf-cutout, #F4EEE0) 5px, transparent 5.5px);
+  background-size: 22px 22px;
+  background-position: center;
+}
+
+.vault-perf-h {
+  background-image: radial-gradient(circle, var(--perf-cutout, #F4EEE0) 5px, transparent 5.5px);
+  background-size: 22px 22px;
+  background-position: center;
+}
+
+/* Prose styles for content pages */
+.prose {
+  @apply max-w-full overflow-x-hidden;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply break-words;
+}
+
+.prose p,
+.prose li,
+.prose td {
+  @apply break-words;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-site);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes float-delayed {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(2deg);
+  }
+}
+
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes scroll-indicator {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-soft {
+
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(6px);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 4.5s ease-in-out infinite;
+}
+
+.animate-float-delayed-alt {
+  animation: float-delayed 5.2s ease-in-out infinite 0.35s;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.animate-scroll-indicator {
+  animation: scroll-indicator 2s ease-in-out infinite;
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 2s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Glass Morphism Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button Animations */
+.btn-hover {
+  @apply transition-smooth hover:shadow-lg hover:scale-105;
+}
+
+/* Card Hover Effect */
+.card-hover {
+  @apply transition-smooth hover:shadow-2xl hover:-translate-y-2;
+}
+
+/* Gradient Text */
+.gradient-text {
+  @apply bg-gradient-to-r from-navy to-dark-blue bg-clip-text text-transparent;
+}
+
+/* Accent Gradient */
+.accent-gradient {
+  @apply bg-gradient-to-r from-teal to-cyan bg-clip-text text-transparent;
+}
+
+/* Loading Animation */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeleton {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Container Utilities */
+.container-padded {
+  @apply mx-auto px-4 sm:px-6 lg:px-8 w-full;
+  max-width: 100%;
+  overflow-x: visible;
+}
+
+/* Toast Styles */
+.toast {
+  @apply fixed bottom-4 right-4 rounded-lg shadow-lg p-4 z-50 animate-slide-in;
+}
+
+.toast-success {
+  @apply bg-green-500 text-white;
+}
+
+.toast-error {
+  @apply bg-red-500 text-white;
+}
+
+.toast-info {
+  @apply bg-blue-500 text-white;
+}
+
+/* Prevent horizontal overflow */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+#__next {
+  width: 100%;
+  overflow-x: hidden;
+}
