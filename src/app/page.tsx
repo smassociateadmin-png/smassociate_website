@@ -55,8 +55,8 @@ export default function Home() {
       <WhyChooseUs />
       <Partners />
       <ContactSection />
-      <FAQSection category="home" />
       <Testimonials />
+      <FAQSection category="home" />
       <FinancialInsights />
     </div>
   );

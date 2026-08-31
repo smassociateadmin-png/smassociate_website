@@ -18,7 +18,7 @@ export default function ContactContent() {
     {
       icon: Mail,
       title: 'Email',
-      details: ['smassociateadmin@gmail.com'],
+      details: [COMPANY_INFO.email],
       description: 'We respond within 2 hours'
     },
     {

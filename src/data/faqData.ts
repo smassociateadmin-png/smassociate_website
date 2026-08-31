@@ -656,7 +656,7 @@ export const FAQ_DATA: Record<FAQCategory, {
       },
       {
         question: 'Can I request deletion or update of my personal data?',
-        answer: 'Yes. You can contact our data protection team at smassociateadmin@gmail.com anytime to request review, update, or deletion of your stored records.',
+        answer: `Yes. You can contact our data protection team at ${process.env.CONTACT_TO_EMAIL || 'your email'} anytime to request review, update, or deletion of your stored records.`,
       },
       {
         question: 'How long do you retain my submitted documents?',
@@ -695,7 +695,7 @@ export const FAQ_DATA: Record<FAQCategory, {
       },
       {
         question: 'How can I resolve a grievance or service issue?',
-        answer: 'We maintain a dedicated customer grievance cell. You can reach out directly to smassociateadmin@gmail.com or call +91 9790219874 for prompt resolution within 48 hours.',
+        answer: `We maintain a dedicated customer grievance cell. You can reach out directly to ${process.env.CONTACT_TO_EMAIL || 'your email'} or call +91 9790219874 for prompt resolution within 48 hours.`,
       },
     ],
   },

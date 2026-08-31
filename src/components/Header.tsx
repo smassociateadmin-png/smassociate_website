@@ -72,11 +72,11 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 w-full overflow-visible">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href={ROUTES.HOME} className="flex items-center gap-2 flex-shrink-0">
-            <div className={`w-10 h-10 ${theme.logoBadgeBg} rounded-xl flex items-center justify-center shadow-md`}>
+          <Link href={ROUTES.HOME} className="flex items-center gap-2 flex-shrink-0 min-w-0">
+            <div className={`w-10 h-10 ${theme.logoBadgeBg} rounded-xl flex items-center justify-center shadow-md flex-shrink-0`}>
               <span className={`${theme.logoBadgeText} font-bold text-lg`}>SM</span>
             </div>
-            <div className="hidden sm:block">
+            <div className="hidden sm:block min-w-0">
               <h1 className={`font-bold text-lg transition-colors ${theme.headerText}`}>
                 SM ASSOCIATE
               </h1>
@@ -148,6 +148,30 @@ export default function Header() {
           >
             {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
           </button>
+        </div>
+
+        {/* Mobile quick header strip */}
+        <div className="lg:hidden border-t border-slate-800/40 py-2">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className={`w-8 h-8 ${theme.logoBadgeBg} rounded-lg flex items-center justify-center shadow-md flex-shrink-0`}>
+                <span className={`${theme.logoBadgeText} font-bold text-sm`}>SM</span>
+              </div>
+              <div className="min-w-0">
+                <p className={`font-bold text-sm leading-tight truncate ${theme.headerText}`}>
+                  SM Associate
+                </p>
+              </div>
+            </div>
+
+            <Link
+              href={ROUTES.CONTACT}
+              className={`inline-flex items-center justify-center rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${theme.headerButtonBg} ${theme.headerButtonText} whitespace-nowrap`}
+              onClick={() => setIsOpen(false)}
+            >
+              Quotes
+            </Link>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

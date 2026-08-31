@@ -339,11 +339,10 @@ export default function VehicleDetailClient({ params }: { params: { id: string }
                     key={idx}
                     type="button"
                     onClick={() => setSelectedImage(imgSrc)}
-                    className={`relative h-24 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
-                      selectedImage === imgSrc
+                    className={`relative h-24 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${selectedImage === imgSrc
                         ? 'border-teal shadow-md ring-2 ring-teal/30 scale-[1.02]'
                         : 'border-gray-200 opacity-75 hover:opacity-100 hover:border-teal/50'
-                    }`}
+                      }`}
                   >
                     <Image
                       src={imgSrc}
@@ -416,7 +415,7 @@ export default function VehicleDetailClient({ params }: { params: { id: string }
           <motion.div
             initial={false}
             viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             className="mb-12 p-8 bg-gray-50 rounded-xl"
           >
             <h2 className="text-2xl font-bold text-navy mb-4">About This Vehicle</h2>
@@ -446,7 +445,7 @@ export default function VehicleDetailClient({ params }: { params: { id: string }
           <motion.div
             initial={false}
             viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             className="mb-12"
           >
             <h2 className="text-2xl font-bold text-navy mb-6">Features & Amenities</h2>
@@ -464,7 +463,7 @@ export default function VehicleDetailClient({ params }: { params: { id: string }
           <motion.div
             initial={false}
             viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             className="mb-12"
           >
             <h2 className="text-2xl font-bold text-navy mb-6">Technical Specifications</h2>
@@ -482,7 +481,7 @@ export default function VehicleDetailClient({ params }: { params: { id: string }
           <motion.div
             initial={false}
             viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             className="bg-gradient-to-r from-teal/10 to-cyan/10 p-8 rounded-xl border border-teal/20"
           >
             <h2 className="text-2xl font-bold text-navy mb-6">Interested in This Vehicle?</h2>
@@ -500,8 +499,8 @@ export default function VehicleDetailClient({ params }: { params: { id: string }
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail size={20} className="text-teal" />
-                    <a href="mailto:info@smassociate.com" className="text-gray-700 hover:text-teal">
-                      info@smassociate.com
+                    <a href={`mailto:${process.env.CONTACT_TO_EMAIL || ''}`} className="text-gray-700 hover:text-teal">
+                      {process.env.CONTACT_TO_EMAIL || 'Contact us'}
                     </a>
                   </div>
                 </div>
@@ -534,43 +533,43 @@ export default function VehicleDetailClient({ params }: { params: { id: string }
               .filter(v => v.id !== vehicleId && (v.type === vehicle.type || v.images.length > 0))
               .slice(0, 3)
               .map((similar) => (
-              <motion.div
-                key={similar.id}
-                initial={false}
-                viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="relative h-44 w-full overflow-hidden bg-slate-900">
-                    <Image
-                      src={similar.images[0]}
-                      alt={`${similar.year} ${similar.brand} ${similar.model} - Pre-Owned ${similar.type}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 right-3 bg-teal text-white px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase">
-                      {similar.type}
+                <motion.div
+                  key={similar.id}
+                  initial={false}
+                  viewport={{ once: true }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="relative h-44 w-full overflow-hidden bg-slate-900">
+                      <Image
+                        src={similar.images[0]}
+                        alt={`${similar.year} ${similar.brand} ${similar.model} - Pre-Owned ${similar.type}`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-3 right-3 bg-teal text-white px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase">
+                        {similar.type}
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-bold text-lg text-navy mb-1">{similar.brand} {similar.model}</h3>
+                      <p className="text-teal font-extrabold text-lg mb-2">{similar.price}</p>
+                      <p className="text-xs text-gray-500 mb-4">{similar.year} • {similar.fuelType} • {similar.location}</p>
                     </div>
                   </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-lg text-navy mb-1">{similar.brand} {similar.model}</h3>
-                    <p className="text-teal font-extrabold text-lg mb-2">{similar.price}</p>
-                    <p className="text-xs text-gray-500 mb-4">{similar.year} • {similar.fuelType} • {similar.location}</p>
+                  <div className="p-5 pt-0">
+                    <Link
+                      href={`/vehicles/${similar.id}`}
+                      className="w-full py-2 px-4 bg-gradient-to-r from-teal to-cyan text-white font-semibold rounded-lg hover:shadow-md transition-all flex items-center justify-center gap-1.5 text-sm text-center"
+                    >
+                      <span>View Details</span>
+                      <ChevronRight size={16} />
+                    </Link>
                   </div>
-                </div>
-                <div className="p-5 pt-0">
-                  <Link
-                    href={`/vehicles/${similar.id}`}
-                    className="w-full py-2 px-4 bg-gradient-to-r from-teal to-cyan text-white font-semibold rounded-lg hover:shadow-md transition-all flex items-center justify-center gap-1.5 text-sm text-center"
-                  >
-                    <span>View Details</span>
-                    <ChevronRight size={16} />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
           </div>
         </div>
       </section>

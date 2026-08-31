@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     description: 'Finance and vehicle marketplace providing loans and pre-owned vehicles in Tirunelveli',
     url: 'https://www.smassociate.in',
     telephone: '+91-9790219874',
-    email: 'smassociateadmin@gmail.com',
+    email: process.env.CONTACT_TO_EMAIL || '',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'No 183 E4, Nellaiapper High Road, Thirunagar',
@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       '@type': 'ContactPoint',
       contactType: 'Customer Service',
       telephone: '+91-9790219874',
-      email: 'smassociateadmin@gmail.com'
+      email: process.env.CONTACT_TO_EMAIL || ''
     },
     sameAs: [
       'https://www.facebook.com/smassociate',

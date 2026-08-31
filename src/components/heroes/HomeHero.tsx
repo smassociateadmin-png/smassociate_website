@@ -34,7 +34,7 @@ export default function HomeHero() {
               <span className="text-teal font-semibold text-lg">Welcome to SM Associate</span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
               Finance Made Simple.
               <br />
               <span className="bg-gradient-to-r from-teal to-cyan bg-clip-text text-transparent block mt-2 md:mt-4">
@@ -43,14 +43,14 @@ export default function HomeHero() {
             </h1>
 
             <div className="mb-6">
-              <p className="text-lg md:text-xl text-teal font-semibold mb-3">
+              <p className="text-lg md:text-lg text-teal font-semibold mb-3">
                 Access home loans, car financing, two-wheeler loans, and premium pre-owned
                 vehicles through one trusted platform. Your journey to financial freedom starts
                 here.
               </p>
             </div>
 
-            <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-lg leading-relaxed">
+            <p className="text-lg md:text-lg text-gray-200 mb-8 max-w-lg leading-relaxed">
               SM Associate is Tirunelveli&apos;s trusted finance and vehicle marketplace, helping
               customers across Tamil Nadu access transparent loans, two-wheeler insurance, and
               verified pre-owned vehicles — all under one roof. With 500+ customers served, 100+

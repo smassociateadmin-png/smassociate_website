@@ -105,7 +105,7 @@ export default function DisclaimerContent() {
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-navy mb-4">6. Contact for Inquiries</h2>
               <p className="text-gray-700 leading-relaxed">
-                If you have any questions about this disclaimer or our services, please contact us at disclaimer@smassociate.com or through our Contact page.
+                If you have any questions about this disclaimer or our services, please contact us through our Contact page or the configured support email.
               </p>
             </div>
           </motion.article>

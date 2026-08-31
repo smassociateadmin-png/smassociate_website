@@ -35,7 +35,7 @@ export default function PrivacyPolicyContent() {
     },
     {
       title: 'Contact Us',
-      content: 'If you have any questions about this Privacy Policy, please contact us at privacy@smassociate.com or by mail at our office address provided on our Contact page.'
+      content: 'If you have any questions about this Privacy Policy, please contact us through our Contact page or by mail at our office address provided on our Contact page.'
     }
   ];
 

@@ -5,8 +5,8 @@ export const COMPANY_INFO = {
   description: 'Professional Finance Services + Vehicle Resale + Financial Assistance Company',
   phone: '+91 9790219874, +91 9047007720',
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919790219874',
-  email: 'smassociateadmin@gmail.com',
-  supportEmail: 'smassociateadmin@gmail.com',
+  email: process.env.CONTACT_TO_EMAIL || '',
+  supportEmail: process.env.CONTACT_TO_EMAIL || '',
   address: 'No 183 E4, Nellaiapper High Road, Thirunagar, Tirunelveli Junction, Tirunelveli, Tamil Nadu 627001',
   mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3948.5297885552337!2d77.74028!3d8.74166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b041f5d5d5d5d5d%3A0x5d5d5d5d5d5d5d5d!2sNo%20183%20E4%2C%20Nellaiapper%20High%20Road%2C%20Thirunagar%2C%20Tirunelveli%20Junction%2C%20Tirunelveli%2C%20Tamil%20Nadu%20627001!5e0!3m2!1sen!2sin!4v1234567890',
 };

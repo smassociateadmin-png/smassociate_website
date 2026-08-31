@@ -12,6 +12,7 @@ import {
   Activity,
   Zap,
 } from 'lucide-react';
+import { COMPANY_INFO } from '@/lib/constants';
 
 export default function ContactHero() {
   const messages = [
@@ -52,7 +53,7 @@ export default function ContactHero() {
     {
       icon: Mail,
       title: 'Email',
-      value: 'smassociateadmin@gmail.com',
+      value: COMPANY_INFO.email,
       desc: 'We reply within 2 hours',
       gradient: 'from-cyan-500 to-blue-500',
     },

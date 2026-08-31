@@ -323,6 +323,9 @@ export default function VaultContactSection({
   const [reason, setReason] = useState(defaultReason);
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [refCode, setRefCode] = useState('');
 
   const [errors, setErrors] = useState<{
@@ -380,8 +383,13 @@ export default function VaultContactSection({
     return () => observer.disconnect();
   }, [hasAnimated, stats]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (honeypot.trim()) {
+      return;
+    }
+
     const newErrors: {
       name?: boolean;
       email?: boolean;
@@ -401,29 +409,56 @@ export default function VaultContactSection({
       return;
     }
 
-    const code = 'REF-' + Math.floor(100000 + Math.random() * 900000);
-    setRefCode(code);
-    setSubmitted(true);
-
-    // Also trigger mailto in background for convenience
-    const selectedOption = reasonOptions.find((r) => r.value === reason);
-    const reasonText = selectedOption ? selectedOption.label : reason;
-    const subject = encodeURIComponent(`[${code}] New Inquiry: ${reasonText} - ${name}`);
-    const body = encodeURIComponent(
-      `Inquiry Reference: ${code}\nFull Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\nSubject/Reason: ${reasonText}\nApproximate Value: ${val || 'N/A'}\n\nMessage/Details:\n${message}\n\nSubmitted from: ${typeof window !== 'undefined' ? window.location.href : ''}`
-    );
+    setIsSubmitting(true);
+    setSubmitMessage('');
 
     try {
-      const link = document.createElement('a');
-      link.href = `mailto:${COMPANY_INFO.email}?subject=${subject}&body=${body}`;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      setTimeout(() => {
-        document.body.removeChild(link);
-      }, 300);
-    } catch {
-      // ignore
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim().toLowerCase(),
+          phone: phone.trim(),
+          reason,
+          value: val.trim(),
+          message: message.trim(),
+          honeypot,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          typeof data?.message === 'string' && data.message
+            ? data.message
+            : 'Something went wrong while sending your enquiry. Please try again later.'
+        );
+      }
+
+      const nextReference = typeof data?.reference === 'string' && data.reference ? data.reference : 'REF-' + Math.floor(100000 + Math.random() * 900000);
+      setRefCode(nextReference);
+      setName('');
+      setEmail('');
+      setPhone('');
+      setVal('');
+      setReason(defaultReason);
+      setMessage('');
+      setHoneypot('');
+      setErrors({});
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitMessage(
+        error instanceof Error && error.message
+          ? error.message
+          : 'Something went wrong while sending your enquiry. Please try again later.'
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -434,7 +469,9 @@ export default function VaultContactSection({
     setVal('');
     setReason(defaultReason);
     setMessage('');
+    setHoneypot('');
     setErrors({});
+    setSubmitMessage('');
     setSubmitted(false);
   };
 
@@ -624,6 +661,16 @@ export default function VaultContactSection({
                 </div>
 
                 <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5 max-w-lg">
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    className="hidden"
+                    aria-hidden="true"
+                    style={{ display: 'none' }}
+                  />
                   {/* Row 1: Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col">
@@ -723,8 +770,8 @@ export default function VaultContactSection({
                               borderColor: errors.reason
                                 ? '#C1443B'
                                 : isChecked
-                                ? t.accent
-                                : t.creamLine,
+                                  ? t.accent
+                                  : t.creamLine,
                               color: isChecked ? t.ink : t.inkSoft,
                               backgroundColor: isChecked ? t.radioBg : 'transparent',
                               boxShadow: isChecked ? `0 0 0 1px ${t.accent}` : 'none',
@@ -844,15 +891,30 @@ export default function VaultContactSection({
 
                   {/* Submit Row */}
                   <div className="flex flex-wrap items-center gap-4 mt-2">
+                    {submitMessage && (
+                      <p
+                        className="w-full text-sm rounded-md border px-3 py-2"
+                        style={{
+                          borderColor: submitMessage.includes('Please') || submitMessage.includes('Something') ? '#FCA5A5' : '#A7F3D0',
+                          backgroundColor: submitMessage.includes('Please') || submitMessage.includes('Something') ? '#FEF2F2' : '#ECFDF5',
+                          color: submitMessage.includes('Please') || submitMessage.includes('Something') ? '#B91C1C' : '#166534',
+                        }}
+                      >
+                        {submitMessage}
+                      </p>
+                    )}
+
                     <button
                       type="submit"
-                      className="relative text-xs sm:text-sm tracking-wider uppercase font-semibold py-3 px-7 rounded cursor-pointer overflow-hidden transition-all hover:shadow-xl active:translate-y-0.5 group"
+                      disabled={isSubmitting}
+                      aria-busy={isSubmitting}
+                      className="relative text-xs sm:text-sm tracking-wider uppercase font-semibold py-3 px-7 rounded cursor-pointer overflow-hidden transition-all hover:shadow-xl active:translate-y-0.5 group disabled:opacity-70 disabled:cursor-not-allowed"
                       style={{
                         background: t.buttonBg,
                         color: '#FFFFFF',
                       }}
                     >
-                      <span className="relative z-10">{submitButtonText}</span>
+                      <span className="relative z-10">{isSubmitting ? 'Sending...' : submitButtonText}</span>
                       {/* Shimmer sweep effect */}
                       <span
                         className="absolute inset-0 -translate-x-[120%] group-hover:translate-x-[120%] transition-transform duration-700 pointer-events-none"
