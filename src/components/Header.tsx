@@ -26,7 +26,7 @@ export default function Header() {
     if (!isMounted) return;
 
     let debounceTimer: NodeJS.Timeout;
-    
+
     const handleScroll = () => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
@@ -65,9 +65,8 @@ export default function Header() {
   return (
     <header
       style={{ background: theme.headerBackground }}
-      className={`sticky top-0 z-[9999] transition-all duration-300 w-full overflow-visible ${
-        isScrolled ? theme.headerBgScrolled : theme.headerBg
-      }`}
+      className={`sticky top-0 z-[9999] transition-all duration-300 w-full overflow-visible ${isScrolled ? theme.headerBgScrolled : theme.headerBg
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 w-full overflow-visible">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -85,6 +84,15 @@ export default function Header() {
               </p>
             </div>
           </Link>
+
+          <div className="lg:hidden flex flex-col items-start justify-center min-w-0 flex-1 px-1.5 leading-none">
+            <span className={`font-bold text-[13px] leading-tight truncate ${theme.headerText}`}>
+              SM Associate
+            </span>
+            <span className={`text-[9px] leading-[1.1] tracking-wide opacity-80 ${theme.headerText}`}>
+              Your Finance &amp; Mobility Partner
+            </span>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
@@ -112,9 +120,8 @@ export default function Header() {
                             <Link
                               key={subitem.label}
                               href={subitem.href}
-                              className={`group/item flex items-center gap-3 px-6 py-4 ${theme.headerText} ${theme.headerHover} transition-all duration-200 text-sm ${
-                                !isLastCol ? 'border-r border-slate-800' : ''
-                              } ${!isLastRow ? 'border-b border-slate-800' : ''} hover:bg-slate-800/80`}
+                              className={`group/item flex items-center gap-3 px-6 py-4 ${theme.headerText} ${theme.headerHover} transition-all duration-200 text-sm ${!isLastCol ? 'border-r border-slate-800' : ''
+                                } ${!isLastRow ? 'border-b border-slate-800' : ''} hover:bg-slate-800/80`}
                             >
                               <div className="p-2 bg-slate-800 group-hover/item:bg-slate-700 rounded-lg transition-colors">
                                 {Icon && <Icon size={18} className="text-white" aria-hidden="true" />}
@@ -132,13 +139,21 @@ export default function Header() {
           </nav>
 
           {/* CTA Button */}
-          <Link href={ROUTES.LOANS} className="hidden md:block flex-shrink-0">
-            <button
-              className={`px-6 py-2.5 ${theme.headerButtonBg} ${theme.headerButtonText} font-semibold rounded-xl hover:shadow-lg transition-all text-sm whitespace-nowrap`}
+          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+            <Link
+              href={ROUTES.CONTACT}
+              className={`inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${theme.headerButtonBg} ${theme.headerButtonText} whitespace-nowrap`}
             >
-              Apply Now
-            </button>
-          </Link>
+              Quotes
+            </Link>
+            <Link href={ROUTES.LOANS}>
+              <button
+                className={`px-6 py-2.5 ${theme.headerButtonBg} ${theme.headerButtonText} font-semibold rounded-xl hover:shadow-lg transition-all text-sm whitespace-nowrap`}
+              >
+                Apply Now
+              </button>
+            </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -148,30 +163,6 @@ export default function Header() {
           >
             {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
           </button>
-        </div>
-
-        {/* Mobile quick header strip */}
-        <div className="lg:hidden border-t border-slate-800/40 py-2">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 min-w-0">
-              <div className={`w-8 h-8 ${theme.logoBadgeBg} rounded-lg flex items-center justify-center shadow-md flex-shrink-0`}>
-                <span className={`${theme.logoBadgeText} font-bold text-sm`}>SM</span>
-              </div>
-              <div className="min-w-0">
-                <p className={`font-bold text-sm leading-tight truncate ${theme.headerText}`}>
-                  SM Associate
-                </p>
-              </div>
-            </div>
-
-            <Link
-              href={ROUTES.CONTACT}
-              className={`inline-flex items-center justify-center rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${theme.headerButtonBg} ${theme.headerButtonText} whitespace-nowrap`}
-              onClick={() => setIsOpen(false)}
-            >
-              Quotes
-            </Link>
-          </div>
         </div>
 
         {/* Mobile Navigation */}
